@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Smart Habit Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="auth-page">
+    <main>
+        <div class="auth-container">
+            <h1>Smart Habit Tracker</h1>
+            <h2>Login</h2>
+            <form id="login-form">
+                <input type="text" id="username" placeholder="Usuário" required>
+                <div class="password-wrapper">
+                    <input type="password" id="password" placeholder="Senha" required>
+                    <span class="toggle-password" onclick="togglePassword()">👁️</span>
+                </div>
+                <button type="submit">Entrar</button>
+            </form>
+            <p>Não tem conta? <a href="/register">Criar Conta</a></p>
+        </div>
+    </main>
+    <script>
+        function togglePassword() {
+            const input = document.getElementById('password');
+            const type = input.type === 'password' ? 'text' : 'password';
+            input.type = type;
+            this.textContent = type === 'password' ? '👁️' : '🙈';
+        }
+
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            fetch('/api/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({username, password})
+            })
+            .then(res => {
+                if (!res.ok) {
+                    // Se a resposta não for OK (ex: 401, 500), tenta ler o JSON de erro
+                    return res.json().then(err => Promise.reject(err));
+                }
+                return res.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    window.location.href = '/';
+                } else {
+                    // Este 'else' pode não ser necessário com o novo tratamento de erro, mas é uma segurança
+                    alert(data.message || 'Ocorreu um erro desconhecido.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro no login:', error);
+                // Exibe a mensagem de erro do servidor, ou uma mensagem padrão
+                alert(error.message || 'Não foi possível conectar ao servidor. Tente novamente mais tarde.');
+            });
+        });
+    </script>
+</body>
+</html>

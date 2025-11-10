@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Habit Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main>
+        <div id="dashboard" class="page" style="display: none;">
+            <div class="container">
+                <h2 id="dashboard-month-display"></h2>
+                <div class="metrics">
+                    <div class="metric">
+                        <h3>Hábitos Completos Hoje</h3>
+                        <p id="habits-today">0</p>
+                    </div>
+                    <div class="metric">
+                        <h3>Hábitos Completos Este Mês</h3>
+                        <p id="habits-month">0</p>
+                    </div>
+                    <div class="metric">
+                        <h3>Maior Sequência</h3>
+                        <p id="longest-streak">0</p>
+                    </div>
+                </div>
+                <div class="charts">
+                    <div class="chart-item">
+                        <h4>Esta Semana</h4>
+                        <canvas id="chart-week"></canvas>
+                    </div>
+                    <div class="chart-item">
+                        <h4>Este Mês</h4>
+                        <canvas id="chart-month"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="registros" class="page">
+            <div class="container">
+                <div class="month-selector">
+                    <button id="prev-month">&laquo; Mês Anterior</button>
+                    <h2 id="current-month"></h2>
+                    <button id="next-month">Próximo Mês &raquo;</button>
+                </div>
+
+                <div class="habit-tracker">
+                    <h3>Hábitos do Mês</h3>
+                    <div id="calendar-view">
+                        <!-- Calendário será gerado dinamicamente via JS -->
+                    </div>
+                </div>
+
+                <!-- Modal para adicionar hábito -->
+                <div id="add-habit-modal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <span id="close-modal">&times;</span>
+                        <h3>Adicionar Novo Hábito</h3>
+                        <input type="text" id="habit-name-input" placeholder="Nome do hábito">
+                        <button id="save-habit-btn">Salvar</button>
+                    </div>
+                </div>
+
+                <!-- Modal para editar hábito -->
+                <div id="edit-habit-modal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <span id="close-edit-modal">&times;</span>
+                        <h3>Editar Hábito</h3>
+                        <input type="text" id="edit-habit-name-input" placeholder="Novo nome do hábito">
+                        <button id="confirm-edit-btn">Confirmar</button>
+                    </div>
+                </div>
+
+                <!-- Modal para confirmar apagar -->
+                <div id="delete-habit-modal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <h3>Apagar Hábito</h3>
+                        <p>Você tem certeza que deseja apagar este hábito? Esta ação não pode ser desfeita.</p>
+                        <button id="confirm-delete-btn">Apagar</button>
+                        <button id="cancel-delete-btn">Cancelar</button>
+                    </div>
+                </div>
+
+        <div class="controls">
+                    <button id="add-habit-btn">Adicionar Hábito</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="historico" class="page" style="display: none;">
+            <div class="container">
+                <div class="month-selector">
+                    <button id="historico-prev-month">&laquo; Mês Anterior</button>
+                    <h2 id="historico-month-display"></h2>
+                    <button id="historico-next-month">Próximo Mês &raquo;</button>
+                </div>
+                <div class="metrics">
+                    <div class="metric">
+                        <h3>Hábitos Completos Total</h3>
+                        <p id="historico-habits">0</p>
+                    </div>
+                    <div class="metric">
+                        <h3>Maior Sequência</h3>
+                        <p id="historico-streak">0</p>
+                    </div>
+                </div>
+                <div class="charts">
+                    <div class="chart-item">
+                        <h4>Semanas</h4>
+                        <canvas id="chart-historico-week"></canvas>
+                    </div>
+                    <div class="chart-item">
+                        <h4>Ano</h4>
+                        <canvas id="chart-historico-year"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Smart Habit Tracker</p>
+    </footer>
+
+    <nav>
+        <div class="nav-container">
+            <h1>Smart Habit Tracker</h1>
+            <div class="navbar">
+                <a href="#" id="dashboard-link">Dashboard</a>
+                <a href="#" id="registros-link">Registros</a>
+                <a href="#" id="historico-link">Histórico</a>
+                <a href="/logout">Sair</a>
+            </div>
+        </div>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
